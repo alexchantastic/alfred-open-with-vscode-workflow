@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.alexchantastic.openwithvscode</string>
+	<key>category</key>
+	<string>Productivity</string>
+	<key>connections</key>
+	<dict>
+		<key>23DEA358-A623-4725-95B2-79C207AF4556</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>577E7995-64DC-454D-B3F1-4FB96CC5AA65</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>DDFAE429-BEEC-49EA-BEDB-7E71BD402695</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Alex Chan</string>
+	<key>description</key>
+	<string>Open files or folders in Visual Studio Code.</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Visual Studio Code</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>acceptsmulti</key>
+				<true/>
+				<key>filetypes</key>
+				<array/>
+				<key>name</key>
+				<string>Open with Visual Studio Code</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.action</string>
+			<key>uid</key>
+			<string>DDFAE429-BEEC-49EA-BEDB-7E71BD402695</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>applescript</key>
+				<string>on alfred_script(q)
+
+set finderSelection to ""
+set theTarget to ""
+set appPath to path to application "Visual Studio Code"
+set defaultTarget to (path to home folder as alias)
+-- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
+-- set defaultTarget to (path to desktop folder as alias)
+
+if (q as string) is "" then
+    tell application "Finder"
+        set finderSelection to (get selection)
+        if length of finderSelection is greater than 0 then
+            set theTarget to finderSelection
+        else
+            try
+                set theTarget to (folder of the front window as alias)
+            on error
+                set theTarget to defaultTarget
+            end try
+        end if
+
+        tell application "Finder"
+            open theTarget using appPath
+        end tell
+
+    end tell
+else
+    try
+        set targets to {}
+        set oldDelimiters to text item delimiters
+        set text item delimiters to tab
+        set qArray to every text item of q
+        set text item delimiters to oldDelimiters
+        repeat with atarget in qArray
+
+            if atarget starts with "~" then
+                set userHome to POSIX path of (path to home folder)
+                if userHome ends with "/" then
+                    set userHome to characters 1 thru -2 of userHome as string
+                end if
+
+                try
+                    set atarget to userHome &amp; characters 2 thru -1 of atarget as string
+                on error
+                    set atarget to userHome
+                end try
+
+            end if
+
+            set targetAlias to ((POSIX file atarget) as alias)
+            set targets to targets &amp; targetAlias
+        end repeat
+
+        set theTarget to targets
+
+        tell application "Finder"
+            open theTarget using appPath
+        end tell
+
+    on error
+        return (atarget as string) &amp; " is not a valid file or folder path."
+    end try
+end if
+
+
+end alfred_script</string>
+				<key>cachescript</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.applescript</string>
+			<key>uid</key>
+			<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Open with Visual Studio Code</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>keyword</key>
+				<string>code</string>
+				<key>subtext</key>
+				<string>Open Finder folder or selection in Visual Studio Code or optionally enter a path to open</string>
+				<key>text</key>
+				<string>Open with Visual Studio Code</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>CC170ECD-6B82-4A05-8681-8185ACE453FE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>anchorfields</key>
+				<true/>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>daterange</key>
+				<integer>0</integer>
+				<key>fields</key>
+				<array>
+					<dict>
+						<key>field</key>
+						<string>kMDItemDisplayName</string>
+						<key>not</key>
+						<false/>
+						<key>split</key>
+						<true/>
+						<key>value</key>
+						<string>{query}</string>
+						<key>words</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>field</key>
+						<string>kMDItemAlternateNames</string>
+						<key>not</key>
+						<false/>
+						<key>split</key>
+						<true/>
+						<key>value</key>
+						<string>{query}</string>
+						<key>words</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>field</key>
+						<string>kMDItemFinderComment</string>
+						<key>not</key>
+						<false/>
+						<key>split</key>
+						<true/>
+						<key>value</key>
+						<string>{query}</string>
+						<key>words</key>
+						<true/>
+					</dict>
+				</array>
+				<key>includesystem</key>
+				<false/>
+				<key>keyword</key>
+				<string>code*</string>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>scopes</key>
+				<array/>
+				<key>subtext</key>
+				<string>Find files and folders and open in Visual Studio Code</string>
+				<key>title</key>
+				<string>Find and open with Visual Studio Code</string>
+				<key>types</key>
+				<array/>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.filefilter</string>
+			<key>uid</key>
+			<string>23DEA358-A623-4725-95B2-79C207AF4556</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string>An Alfred 3 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
+	<key>uidata</key>
+	<dict>
+		<key>23DEA358-A623-4725-95B2-79C207AF4556</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>320</real>
+		</dict>
+		<key>577E7995-64DC-454D-B3F1-4FB96CC5AA65</key>
+		<dict>
+			<key>xpos</key>
+			<integer>500</integer>
+			<key>ypos</key>
+			<real>100</real>
+		</dict>
+		<key>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</key>
+		<dict>
+			<key>xpos</key>
+			<integer>700</integer>
+			<key>ypos</key>
+			<real>100</real>
+		</dict>
+		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>300</integer>
+			<key>ypos</key>
+			<real>210</real>
+		</dict>
+		<key>DDFAE429-BEEC-49EA-BEDB-7E71BD402695</key>
+		<dict>
+			<key>xpos</key>
+			<integer>100</integer>
+			<key>ypos</key>
+			<real>20</real>
+		</dict>
+	</dict>
+	<key>version</key>
+	<string>1.0.0</string>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
