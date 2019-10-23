@@ -331,8 +331,8 @@ end alfred_script</string>
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>1.0.0</string>
+	<string>1.1.0</string>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/alexchantastic/alfred-open-with-vscode-workflow</string>
 </dict>
 </plist>
