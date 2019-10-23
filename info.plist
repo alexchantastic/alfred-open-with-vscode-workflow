@@ -264,7 +264,7 @@ end alfred_script</string>
 				<key>includesystem</key>
 				<false/>
 				<key>keyword</key>
-				<string>code*</string>
+				<string>codef</string>
 				<key>limit</key>
 				<integer>0</integer>
 				<key>runningsubtext</key>
