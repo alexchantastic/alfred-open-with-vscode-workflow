@@ -1,8 +1,8 @@
 # alfred-open-with-vscode-workflow
 
-![Screenshot](https://user-images.githubusercontent.com/604167/44318313-1da7a180-a3ea-11e8-8726-deb47d549301.png)
+![Screenshot](https://user-images.githubusercontent.com/604167/67430007-32576a80-f596-11e9-9b4f-a81a99a33cba.png)
 
-An [Alfred 3](https://www.alfredapp.com/) workflow opening files or folders with [Visual Studio Code](https://code.visualstudio.com/).
+An [Alfred 4](https://www.alfredapp.com/) workflow opening files or folders with [Visual Studio Code](https://code.visualstudio.com/).
 
 Based off of the Alfred 2 workflow from [franzheidl/alfred-workflows](https://github.com/franzheidl/alfred-workflows).
 
@@ -23,6 +23,6 @@ Note that the [Alfred Powerpack](https://www.alfredapp.com/powerpack/) is requir
 
 ### Search & Open
 
-1. Use the keyword `code*` to trigger the workflow
+1. Use the keyword `codef` to trigger the workflow
 2. Press `enter` or begin to type your file or folder search term
 3. Select the file or folder you want to open and press `enter`
