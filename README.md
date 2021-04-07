@@ -1,6 +1,6 @@
 # alfred-open-with-vscode-workflow
 
-![Screenshot](https://user-images.githubusercontent.com/604167/67430007-32576a80-f596-11e9-9b4f-a81a99a33cba.png)
+![Screenshot](https://user-images.githubusercontent.com/604167/113921066-69c1d300-979a-11eb-9341-bb69cc6c0b1a.png)
 
 An [Alfred 4](https://www.alfredapp.com/) workflow opening files or folders with [Visual Studio Code](https://code.visualstudio.com/).
 
