@@ -12,7 +12,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<string>6B1C7938-B468-4E9D-8598-B26BB98B90FE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -21,24 +21,13 @@
 				<false/>
 			</dict>
 		</array>
-		<key>577E7995-64DC-454D-B3F1-4FB96CC5AA65</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<key>6B1C7938-B468-4E9D-8598-B26BB98B90FE</key>
+		<array/>
 		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<string>6B1C7938-B468-4E9D-8598-B26BB98B90FE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -51,7 +40,7 @@
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+				<string>6B1C7938-B468-4E9D-8598-B26BB98B90FE</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -75,7 +64,7 @@
 			<key>config</key>
 			<dict>
 				<key>acceptsmulti</key>
-				<true/>
+				<integer>1</integer>
 				<key>filetypes</key>
 				<array/>
 				<key>name</key>
@@ -91,104 +80,91 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>applescript</key>
-				<string>on alfred_script(q)
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>68</integer>
+				<key>script</key>
+				<string>on run
 
-set finderSelection to ""
-set theTarget to ""
-set appPath to path to application "Visual Studio Code"
-set defaultTarget to (path to home folder as alias)
--- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
--- set defaultTarget to (path to desktop folder as alias)
+  set theQuery to "{query}"
+  set finderSelection to ""
+  set theTarget to ""
+  set defaultTarget to (path to home folder as alias)
+  -- comment line above and uncomment line below to open desktop instead of user home when there's no selection or open folder in the Finder:
+  -- set defaultTarget to (path to desktop folder as alias)
 
-if (q as string) is "" then
-    tell application "Finder"
-        set finderSelection to (get selection)
-        if length of finderSelection is greater than 0 then
-            set theTarget to finderSelection
-        else
-            try
-                set theTarget to (folder of the front window as alias)
-            on error
-                set theTarget to defaultTarget
-            end try
-        end if
+  if theQuery is "" then
+      tell application "Finder"
+          set finderSelection to (get selection)
+          if length of finderSelection is greater than 0 then
+              set theTarget to finderSelection
+          else
+              try
+                  set theTarget to (folder of the front window as alias)
+              on error
+                  set theTarget to defaultTarget
+              end try
+          end if
 
-        tell application "Finder"
-            open theTarget using appPath
-        end tell
+          tell application "Visual Studio Code"
+              open theTarget as alias
+          end tell
 
-    end tell
-else
-    try
-        set targets to {}
-        set oldDelimiters to text item delimiters
-        set text item delimiters to tab
-        set qArray to every text item of q
-        set text item delimiters to oldDelimiters
-        repeat with atarget in qArray
+      end tell
+  else
+      try
+          set targets to {}
+          set oldDelimiters to text item delimiters
+          set text item delimiters to tab
+          set qArray to every text item of theQuery
+          set text item delimiters to oldDelimiters
+          repeat with atarget in qArray
 
-            if atarget starts with "~" then
-                set userHome to POSIX path of (path to home folder)
-                if userHome ends with "/" then
-                    set userHome to characters 1 thru -2 of userHome as string
-                end if
+              if atarget starts with "~" then
+                  set userHome to POSIX path of (path to home folder)
+                  if userHome ends with "/" then
+                      set userHome to characters 1 thru -2 of userHome as string
+                  end if
 
-                try
-                    set atarget to userHome &amp; characters 2 thru -1 of atarget as string
-                on error
-                    set atarget to userHome
-                end try
+                  try
+                      set atarget to userHome &amp; characters 2 thru -1 of atarget as string
+                  on error
+                      set atarget to userHome
+                  end try
 
-            end if
+              end if
 
-            set targetAlias to ((POSIX file atarget) as alias)
-            set targets to targets &amp; targetAlias
-        end repeat
+              set targetAlias to ((POSIX file atarget) as alias)
+              set targets to targets &amp; targetAlias
+          end repeat
 
-        set theTarget to targets
+          set theTarget to targets
 
-        tell application "Finder"
-            open theTarget using appPath
-        end tell
+          tell application "Visual Studio Code"
+              open theTarget
+          end tell
 
-    on error
-        return (atarget as string) &amp; " is not a valid file or folder path."
-    end try
-end if
+      on error
+          return (atarget as string) &amp; " is not a valid file or folder path."
+      end try
+  end if
 
-
-end alfred_script</string>
-				<key>cachescript</key>
-				<true/>
+  return theQuery
+end run</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>6</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.applescript</string>
+			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
-			<string>577E7995-64DC-454D-B3F1-4FB96CC5AA65</string>
+			<string>6B1C7938-B468-4E9D-8598-B26BB98B90FE</string>
 			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<true/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>{query}</string>
-				<key>title</key>
-				<string>Open with Visual Studio Code</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</string>
-			<key>version</key>
-			<integer>1</integer>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -291,7 +267,7 @@ end alfred_script</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>An Alfred 3 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
+	<string>An Alfred 4 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
 	<key>uidata</key>
 	<dict>
 		<key>23DEA358-A623-4725-95B2-79C207AF4556</key>
@@ -301,19 +277,12 @@ end alfred_script</string>
 			<key>ypos</key>
 			<real>320</real>
 		</dict>
-		<key>577E7995-64DC-454D-B3F1-4FB96CC5AA65</key>
+		<key>6B1C7938-B468-4E9D-8598-B26BB98B90FE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>500</integer>
+			<integer>495</integer>
 			<key>ypos</key>
-			<real>100</real>
-		</dict>
-		<key>C8DBBD25-D349-4EBD-BA38-4CF5FDB57EAF</key>
-		<dict>
-			<key>xpos</key>
-			<integer>700</integer>
-			<key>ypos</key>
-			<real>100</real>
+			<integer>100</integer>
 		</dict>
 		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
 		<dict>
@@ -331,7 +300,7 @@ end alfred_script</string>
 		</dict>
 	</dict>
 	<key>version</key>
-	<string>1.1.1</string>
+	<string>1.2.0</string>
 	<key>webaddress</key>
 	<string>https://github.com/alexchantastic/alfred-open-with-vscode-workflow</string>
 </dict>
