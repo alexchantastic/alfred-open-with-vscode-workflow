@@ -26,3 +26,7 @@ Note that the [Alfred Powerpack](https://www.alfredapp.com/powerpack/) is requir
 1. Use the keyword `codef` to trigger the workflow
 2. Press `enter` or begin to type your file or folder search term
 3. Select the file or folder you want to open and press `enter`
+
+## License
+
+Code released under the [MIT License](https://github.com/alexchantastic/alfred-open-with-vscode-workflow/blob/master/LICENSE).
