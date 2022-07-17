@@ -2,7 +2,7 @@
 
 ![Screenshot](https://user-images.githubusercontent.com/604167/113921066-69c1d300-979a-11eb-9341-bb69cc6c0b1a.png)
 
-An [Alfred 4](https://www.alfredapp.com/) workflow opening files or folders with [Visual Studio Code](https://code.visualstudio.com/).
+An [Alfred 5](https://www.alfredapp.com/) workflow opening files or folders with [Visual Studio Code](https://code.visualstudio.com/).
 
 Based off of the Alfred 2 workflow from [franzheidl/alfred-workflows](https://github.com/franzheidl/alfred-workflows).
 
