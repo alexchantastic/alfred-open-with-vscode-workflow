@@ -267,40 +267,42 @@ end run</string>
 		</dict>
 	</array>
 	<key>readme</key>
-	<string>An Alfred 4 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
+	<string>An Alfred 5 workflow for opening files or folders with Visual Studio Code. Based off of the Alfred 2 workflow from @franzheidl.</string>
 	<key>uidata</key>
 	<dict>
 		<key>23DEA358-A623-4725-95B2-79C207AF4556</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<real>300</real>
 			<key>ypos</key>
 			<real>320</real>
 		</dict>
 		<key>6B1C7938-B468-4E9D-8598-B26BB98B90FE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>495</integer>
+			<real>495</real>
 			<key>ypos</key>
-			<integer>100</integer>
+			<real>100</real>
 		</dict>
 		<key>CC170ECD-6B82-4A05-8681-8185ACE453FE</key>
 		<dict>
 			<key>xpos</key>
-			<integer>300</integer>
+			<real>300</real>
 			<key>ypos</key>
 			<real>210</real>
 		</dict>
 		<key>DDFAE429-BEEC-49EA-BEDB-7E71BD402695</key>
 		<dict>
 			<key>xpos</key>
-			<integer>100</integer>
+			<real>100</real>
 			<key>ypos</key>
 			<real>20</real>
 		</dict>
 	</dict>
+	<key>userconfigurationconfig</key>
+	<array/>
 	<key>version</key>
-	<string>1.2.0</string>
+	<string>1.2.1</string>
 	<key>webaddress</key>
 	<string>https://github.com/alexchantastic/alfred-open-with-vscode-workflow</string>
 </dict>
